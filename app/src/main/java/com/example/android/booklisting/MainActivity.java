@@ -15,6 +15,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        getLoaderManager().initLoader(1, null, this);
+
     }
 
     @Override
