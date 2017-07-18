@@ -3,6 +3,7 @@ package com.example.android.booklisting;
 import android.content.AsyncTaskLoader;
 import android.content.Context;
 
+import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,8 +25,12 @@ public class BookLoader extends AsyncTaskLoader<List<Book>> {
 
     @Override
     public List<Book> loadInBackground() {
+
+        //ArrayList to be returned to begin testing networking code
         List<Book> bookList = new ArrayList<Book>();
         bookList.add(1, new Book("Test Title", (new String[]{"Actor 1", "Actor 2"}), "Fake Description", 12, 2.20));
+
+        HttpURLConnection testHttpURL = QueryHandler.makeConnection(QueryHandler.createURL(QueryHandler.TEST_URL));
 
         return bookList;
     }
