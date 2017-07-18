@@ -1,5 +1,7 @@
+package com.example.android.booklisting;
+
 /**
- * For each book returned in the search query response a Book object will be created
+ * For each book returned in the search query response a com.example.android.booklisting.Book object will be created
  */
 
 public class Book {
