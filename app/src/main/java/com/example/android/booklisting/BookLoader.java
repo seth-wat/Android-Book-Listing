@@ -3,6 +3,7 @@ package com.example.android.booklisting;
 import android.content.AsyncTaskLoader;
 import android.content.Context;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,6 +24,9 @@ public class BookLoader extends AsyncTaskLoader<List<Book>> {
 
     @Override
     public List<Book> loadInBackground() {
-        return null;
+        List<Book> bookList = new ArrayList<Book>();
+        bookList.add(1, new Book("Test Title", (new String[]{"Actor 1", "Actor 2"}), "Fake Description", 12, 2.20));
+
+        return bookList;
     }
 }
