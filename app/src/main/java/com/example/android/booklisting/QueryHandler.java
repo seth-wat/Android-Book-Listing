@@ -2,6 +2,10 @@ package com.example.android.booklisting;
 
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -93,6 +97,29 @@ public final class QueryHandler {
     }
 
     private static List<Book> parseJSONData(String rawJSON) {
+        JSONObject mainObject;
+        JSONArray itemArray;
+        JSONObject jsonBookObject;
+
+        try {
+            mainObject = new JSONObject(rawJSON);
+            itemArray = mainObject.getJSONArray("items");
+            //Loop through each object in the itemArray, each object represents a book.
+            for (int i = 0; i < itemArray.length(); i++) {
+                //Variables for the Book constructor
+                String title;
+                String[] authors;
+                String description;
+                int pageCount;
+                double rating;
+                
+                jsonBookObject = itemArray.getJSONObject(i);
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         return null;
     }
 
