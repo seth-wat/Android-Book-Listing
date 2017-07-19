@@ -6,16 +6,20 @@ import android.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import java.net.HttpURLConnection;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Book>> {
-
+    ListView mListView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mListView = (ListView) findViewById(R.id.display_list_view);
         getLoaderManager().initLoader(1, null, this);
 
     }
@@ -29,6 +33,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onLoadFinished(Loader<List<Book>> loader, List<Book> data) {
         Log.v("MainActivity", "onLoadFinished is now executing");
+        BookArrayAdapater mAdapter = new BookArrayAdapater(this, (ArrayList<Book>) data);
+        mListView.setAdapter(mAdapter);
     }
 
     @Override
