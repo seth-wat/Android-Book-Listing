@@ -18,6 +18,7 @@ import java.util.List;
 public final class QueryHandler {
     public static final String LOG_TAG = QueryHandler.class.getSimpleName();
     public static final String TEST_URL = "https://www.googleapis.com/books/v1/volumes?q=android&maxResults=1";
+    private static final int PROPER_RESPONSE_CODE = 200;
 
 
     private QueryHandler() {
@@ -46,9 +47,10 @@ public final class QueryHandler {
             myConnection.setConnectTimeout(15000);
             myConnection.setRequestMethod("GET");
             myConnection.connect();
-            Log.v(LOG_TAG, "Executing getResponseCode()");
             Log.v(LOG_TAG, Integer.toString(myConnection.getResponseCode()));
-            return myConnection;
+            if (myConnection.getResponseCode() == PROPER_RESPONSE_CODE) {
+                return myConnection;
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
