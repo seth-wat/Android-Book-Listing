@@ -17,7 +17,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getLoaderManager().initLoader(1, null, this);
-        Log.v("mainActivity", "loader has changed");
 
     }
 
@@ -29,8 +28,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onLoadFinished(Loader<List<Book>> loader, List<Book> data) {
-        Log.e("EROOR","ERROR");
-
+        Log.v("MainActivity", "onLoadFinished is now executing");
     }
 
     @Override
