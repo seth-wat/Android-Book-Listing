@@ -98,7 +98,7 @@ public final class QueryHandler {
     }
 
     private static List<Book> parseJSONData(String rawJSON) {
-        ArrayList<Book> bookList = null;
+        ArrayList<Book> bookList = new ArrayList<Book>();
 
         JSONObject mainObject = null;
         JSONArray itemArray = null ;
@@ -126,11 +126,15 @@ public final class QueryHandler {
                 for (int j = 0; j < authorArray.length(); j++) {
                     authors[j] = authorArray.getString(j);
                 }
-
-
             }
         } catch (JSONException e) {
             e.printStackTrace();
+        }
+
+        //If all the variables are set from parsing the JSON
+        //Make the book object
+        if (title != null && description != null && pageCount != 0 && rating != 0.00  && (authors != null || authors.length > 0)) {
+            bookList.add(new Book(title, authors, description, pageCount, rating));
         }
 
         return null;
