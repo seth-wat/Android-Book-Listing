@@ -63,8 +63,9 @@ public final class QueryHandler {
 
     private static String getRawJSONFromStream(HttpURLConnection httpUrlCon) {
         StringBuilder rawJSON = new StringBuilder();
+        InputStream is = null;
         try {
-            InputStream is = httpUrlCon.getInputStream();
+            is = httpUrlCon.getInputStream();
             InputStreamReader isR = new InputStreamReader(is, Charset.forName("UTF-8"));
             BufferedReader br = new BufferedReader(isR);
             String line = br.readLine();
@@ -74,6 +75,17 @@ public final class QueryHandler {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            if (httpUrlCon != null) {
+                httpUrlCon.disconnect();
+            }
+            if (is != null) {
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return rawJSON.toString();
     }
