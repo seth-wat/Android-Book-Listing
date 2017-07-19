@@ -33,7 +33,7 @@ public class BookLoader extends AsyncTaskLoader<List<Book>> {
 
         Log.v("BookLoader" , "I am about to make the connection and run the query in loadInBackground");
         HttpURLConnection testHttpURL = QueryHandler.makeConnection(QueryHandler.createURL(QueryHandler.TEST_URL));
-
+        Log.v("Making", "A test change to revert commit");
         return bookList;
     }
 }
