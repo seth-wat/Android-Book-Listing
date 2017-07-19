@@ -54,6 +54,8 @@ public final class QueryHandler {
             Log.v(LOG_TAG, Integer.toString(myConnection.getResponseCode()));
             if (myConnection.getResponseCode() == PROPER_RESPONSE_CODE) {
                 return myConnection;
+            } else {
+                myConnection.disconnect();
             }
         } catch (IOException e) {
             e.printStackTrace();
