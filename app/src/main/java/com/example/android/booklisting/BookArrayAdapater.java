@@ -1,8 +1,10 @@
 package com.example.android.booklisting;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +18,7 @@ import java.util.ArrayList;
 
 public class BookArrayAdapater extends ArrayAdapter<Book> {
 
-    public BookArrayAdapater(Context context, ArrayList<Book> books) {
+    public BookArrayAdapater(Activity context, ArrayList<Book> books) {
         super(context, 0, books);
     }
 
@@ -37,13 +39,13 @@ public class BookArrayAdapater extends ArrayAdapter<Book> {
 
 
         Book book2Populate = getItem(position);
+        //set methods must be properly cast to String or exception is thrown
         mTitleView.setText(book2Populate.getTitle());
-        mPageCountView.setText(book2Populate.getPage_count());
+        mPageCountView.setText(Integer.toString(book2Populate.getPage_count()));
         mRatingView.setText(Double.toString(book2Populate.getRating()));
         mDescView.setText(book2Populate.getDescription());
         mAuthorsView.setText(book2Populate.getAuthors());
 
-
-
+        return convertView;
     }
 }
