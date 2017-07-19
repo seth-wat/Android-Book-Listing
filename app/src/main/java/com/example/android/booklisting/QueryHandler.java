@@ -33,7 +33,7 @@ public final class QueryHandler {
     private QueryHandler() {
     }
 
-    public static URL createURL(String url) {
+    private static URL createURL(String url) {
         URL url2Return = null;
         try {
             url2Return = new URL(url);
@@ -43,7 +43,7 @@ public final class QueryHandler {
         return url2Return;
     }
 
-    public static HttpURLConnection makeConnection(URL url) {
+    private static HttpURLConnection makeConnection(URL url) {
         if (url == null) {
             return null;
         }
@@ -68,7 +68,7 @@ public final class QueryHandler {
         return myConnection;
     }
 
-    public static String getRawJSONFromStream(HttpURLConnection httpUrlCon) {
+    private static String getRawJSONFromStream(HttpURLConnection httpUrlCon) {
         StringBuilder rawJSON = new StringBuilder();
         InputStream is = null;
         try {
@@ -98,7 +98,7 @@ public final class QueryHandler {
         return rawJSON.toString();
     }
 
-    public static List<Book> parseJSONData(String rawJSON) {
+    private static List<Book> parseJSONData(String rawJSON) {
         ArrayList<Book> bookList = new ArrayList<Book>();
 
         JSONObject mainObject = null;
@@ -142,11 +142,11 @@ public final class QueryHandler {
             Log.e(LOG_TAG, "Something went wrong during the JSON parse");
         }
 
-        return null;
+        return bookList;
     }
 
     public static List<Book> fetchBookData(String url) {
-        return null;
+        return parseJSONData(getRawJSONFromStream(makeConnection(createURL(url))));
     }
 
 }
