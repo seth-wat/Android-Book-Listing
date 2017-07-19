@@ -14,12 +14,13 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * This class handles establishing the connection, making the query to google.books.com
  * and parsing the JSON response.
- *
+ * <p>
  * The class should only be accessed through fetchBookData
  */
 
@@ -97,10 +98,12 @@ public final class QueryHandler {
     }
 
     private static List<Book> parseJSONData(String rawJSON) {
-        JSONObject mainObject;
-        JSONArray itemArray;
-        JSONObject jsonBookObject;
-        JSONArray authorArray;
+        ArrayList<Book> bookList = null;
+
+        JSONObject mainObject = null;
+        JSONArray itemArray = null ;
+        JSONObject jsonBookObject = null;
+        JSONArray authorArray = null;
 
         String title = null;
         String[] authors = null;
@@ -113,9 +116,6 @@ public final class QueryHandler {
             itemArray = mainObject.getJSONArray("items");
             //Loop through each object in the itemArray, each object represents a book.
             for (int i = 0; i < itemArray.length(); i++) {
-                //Variables for the Book constructor
-
-
                 jsonBookObject = itemArray.getJSONObject(i);
                 title = jsonBookObject.getString("title");
                 description = jsonBookObject.getString("description");
