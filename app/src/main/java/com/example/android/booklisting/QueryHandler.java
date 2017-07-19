@@ -26,7 +26,7 @@ import java.util.List;
 
 public final class QueryHandler {
     public static final String LOG_TAG = QueryHandler.class.getSimpleName();
-    public static final String TEST_URL = "https://www.googleapis.com/books/v1/volumes?q=fantasy&maxResults=2";
+    public static final String TEST_URL = "https://www.googleapis.com/books/v1/volumes?q=fantasy&maxResults=10";
     private static final int PROPER_RESPONSE_CODE = 200;
 
 
@@ -116,17 +116,39 @@ public final class QueryHandler {
             mainObject = new JSONObject(rawJSON);
             itemArray = mainObject.getJSONArray("items");
             //Loop through each object in the itemArray, each object represents a book.
+            Log.e(LOG_TAG, Integer.toString(itemArray.length()));
             for (int i = 0; i < itemArray.length(); i++) {
                 jsonBookObject = itemArray.getJSONObject(i).getJSONObject("volumeInfo");
-                title = jsonBookObject.getString("title");
-                description = jsonBookObject.getString("description");
-                pageCount = jsonBookObject.getInt("pageCount");
-                rating = jsonBookObject.getDouble("averageRating");
-                authorArray = jsonBookObject.getJSONArray("authors");
-                authors = new String[authorArray.length()];
-                for (int j = 0; j < authorArray.length(); j++) {
-                    authors[j] = authorArray.getString(j);
+                try {
+                    title = jsonBookObject.getString("title");
+                } catch(JSONException e) {
+                    title = "No Title Available";
                 }
+                try {
+                    description = jsonBookObject.getString("description");
+                }catch (JSONException e) {
+                    description = "No description available";
+                }
+                try {
+                    pageCount = jsonBookObject.getInt("pageCount");
+                } catch(JSONException e) {
+                    pageCount = 0;
+                }
+                try {
+                    rating = jsonBookObject.getDouble("averageRating");
+                } catch(JSONException e) {
+                    rating = 0.00;
+                }
+                try {
+                    authorArray = jsonBookObject.getJSONArray("authors");
+                    authors = new String[authorArray.length()];
+                    for (int j = 0; j < authorArray.length(); j++) {
+                        authors[j] = authorArray.getString(j);
+                    }
+                } catch(JSONException e) {
+                    authors = (new String[]{"No authors available"});
+                }
+                bookList.add(new Book(title, authors, description, pageCount, rating));
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -135,12 +157,6 @@ public final class QueryHandler {
         //If all the variables are set from parsing the JSON
         //... not sure if this if statement is needed, I think JSON will throw an exception in the case the JSON property cannot be stored in the local variable
         //Make the book object
-        if (title != null && description != null && pageCount != 0 && rating != 0.00  && (authors != null && authors.length > 0)) {
-            Log.v(LOG_TAG, "Creating a new book object and adding it to the list");
-            bookList.add(new Book(title, authors, description, pageCount, rating));
-        } else {
-            Log.e(LOG_TAG, "Something went wrong during the JSON parse");
-        }
 
         return bookList;
     }
