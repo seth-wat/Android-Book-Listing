@@ -100,6 +100,13 @@ public final class QueryHandler {
         JSONObject mainObject;
         JSONArray itemArray;
         JSONObject jsonBookObject;
+        JSONArray authorArray;
+
+        String title = null;
+        String[] authors = null;
+        String description = null;
+        int pageCount = 0;
+        double rating = 0.00;
 
         try {
             mainObject = new JSONObject(rawJSON);
@@ -107,13 +114,19 @@ public final class QueryHandler {
             //Loop through each object in the itemArray, each object represents a book.
             for (int i = 0; i < itemArray.length(); i++) {
                 //Variables for the Book constructor
-                String title;
-                String[] authors;
-                String description;
-                int pageCount;
-                double rating;
-                
+
+
                 jsonBookObject = itemArray.getJSONObject(i);
+                title = jsonBookObject.getString("title");
+                description = jsonBookObject.getString("description");
+                pageCount = jsonBookObject.getInt("pageCount");
+                rating = jsonBookObject.getDouble("averageRating");
+                authorArray = jsonBookObject.getJSONArray("authors");
+                authors = new String[authorArray.length()];
+                for (int j = 0; j < authorArray.length(); j++) {
+                    authors[j] = authorArray.getString(j);
+                }
+
 
             }
         } catch (JSONException e) {
