@@ -2,10 +2,14 @@ package com.example.android.booklisting;
 
 import android.util.Log;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.List;
 
 /**
@@ -58,6 +62,14 @@ public final class QueryHandler {
     }
 
     private static String getRawJSONFromStream(HttpURLConnection httpUrlCon) {
+        StringBuilder rawJSON = new StringBuilder();
+        try {
+            InputStream is = httpUrlCon.getInputStream();
+            InputStreamReader isR = new InputStreamReader(is, Charset.forName("UTF-8"));
+            BufferedReader br = new BufferedReader(isR);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
