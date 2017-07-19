@@ -46,6 +46,7 @@ public final class QueryHandler {
             myConnection.setConnectTimeout(15000);
             myConnection.setRequestMethod("GET");
             myConnection.connect();
+            Log.v(LOG_TAG, "Executing getResponseCode()");
             Log.v(LOG_TAG, Integer.toString(myConnection.getResponseCode()));
             return myConnection;
         } catch (IOException e) {
