@@ -23,8 +23,12 @@ public class Book {
         return title;
     }
 
-    public String[] getAuthors() {
-        return authors;
+    public String getAuthors() {
+        StringBuilder authors = new StringBuilder();
+        for (int i = 0; i < this.authors.length; i++) {
+            authors.append(this.authors[i]);
+        }
+        return authors.toString();
     }
 
     public String getDescription() {
