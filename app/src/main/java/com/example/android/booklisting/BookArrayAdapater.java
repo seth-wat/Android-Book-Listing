@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-
+import android.widget.TextView;
 import java.util.ArrayList;
 
 /**
@@ -15,6 +15,7 @@ import java.util.ArrayList;
  */
 
 public class BookArrayAdapater extends ArrayAdapter<Book> {
+
     public BookArrayAdapater(Context context, ArrayList<Book> books) {
         super(context, 0, books);
     }
@@ -28,7 +29,21 @@ public class BookArrayAdapater extends ArrayAdapter<Book> {
                     R.layout.list_item, parent, false);
         }
 
-        
+        TextView mTitleView = (TextView) convertView.findViewById(R.id.title_text_view);
+        TextView mPageCountView = (TextView) convertView.findViewById(R.id.page_count_text_view);
+        TextView mRatingView = (TextView) convertView.findViewById(R.id.rating_text_view);
+        TextView mDescView = (TextView) convertView.findViewById(R.id.description_text_view);
+        TextView mAuthorsView = (TextView) convertView.findViewById(R.id.authors_text_view);
+
+
+        Book book2Populate = getItem(position);
+        mTitleView.setText(book2Populate.getTitle());
+        mPageCountView.setText(book2Populate.getPage_count());
+        mRatingView.setText(Double.toString(book2Populate.getRating()));
+        mDescView.setText(book2Populate.getDescription());
+        mAuthorsView.setText(book2Populate.getAuthors());
+
+
 
     }
 }
