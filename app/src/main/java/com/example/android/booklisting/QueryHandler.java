@@ -67,10 +67,15 @@ public final class QueryHandler {
             InputStream is = httpUrlCon.getInputStream();
             InputStreamReader isR = new InputStreamReader(is, Charset.forName("UTF-8"));
             BufferedReader br = new BufferedReader(isR);
+            String line = br.readLine();
+            while (line != null) {
+                rawJSON.append(line);
+                line = br.readLine();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+        return rawJSON.toString();
     }
 
     private static List<Book> parseJSONData(String rawJSON) {
