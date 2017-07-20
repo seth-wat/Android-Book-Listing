@@ -2,10 +2,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 android:layout_width="match_parent"
 android:layout_height="match_parent">
-
+<SearchView
+    android:id="@+id/book_search_view"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:layout_margin="10dp"
+    android:iconifiedByDefault="false"
+    android:queryHint="Search Google Books">
+</SearchView>
 <ListView
+    android:layout_below="@+id/book_search_view"
     android:id="@+id/display_list_view"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical" />
 </RelativeLayout>
