@@ -29,7 +29,7 @@ public class BookLoader extends AsyncTaskLoader<List<Book>> {
         List<Book> bookList = null;
 
         Log.v("BookLoader" , "I am about to make the connection and run the query in loadInBackground");
-        bookList = QueryHandler.fetchBookData(QueryHandler.TEST_URL);
+        bookList = QueryHandler.fetchBookData(QueryHandler.getUrl());
         Log.v("BookLoader", "I've finshed fetching the book data");
         return bookList;
     }
