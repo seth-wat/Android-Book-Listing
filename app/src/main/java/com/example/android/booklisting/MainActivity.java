@@ -33,13 +33,14 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         mAdapter = new BookArrayAdapater(this, new ArrayList<Book>());
         mListView.setAdapter(mAdapter);
         mEditView = (EditText) findViewById(R.id.book_edit_text);
+
         mEditView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mEditView.setText("");
             }
         });
-        
+
     }
 
     @Override
@@ -52,6 +53,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menu_search_item) {
+            String fullUrl = QueryHandler.BASE_URL + mEditView.getText().toString() + "&maxResults=10";
+            if (!fullUrl.equals(QueryHandler.getUrl())) {
+                queryClicks++; //Need to create a new loader if the url is new.
+            }
             QueryHandler.setUrl(QueryHandler.BASE_URL + mEditView.getText().toString() + "&maxResults=10");
             getLoaderManager().initLoader(queryClicks, null, MainActivity.this);
         }

@@ -41,10 +41,10 @@ public class BookArrayAdapater extends ArrayAdapter<Book> {
         Book book2Populate = getItem(position);
         //set methods must be properly cast to String or exception is thrown
         mTitleView.setText(book2Populate.getTitle());
-        mPageCountView.setText(Integer.toString(book2Populate.getPage_count()));
-        mRatingView.setText(Double.toString(book2Populate.getRating()));
+        mPageCountView.setText("Pg. " + Integer.toString(book2Populate.getPage_count()));
+        mRatingView.setText("Rating: " + Double.toString(book2Populate.getRating()));
         mDescView.setText(book2Populate.getDescription());
-        mAuthorsView.setText(book2Populate.getAuthors());
+        mAuthorsView.setText("Author(s): " + book2Populate.getAuthors() + ", ");
 
         return convertView;
     }
