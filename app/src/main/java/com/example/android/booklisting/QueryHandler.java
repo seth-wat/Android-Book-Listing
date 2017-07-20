@@ -26,11 +26,20 @@ import java.util.List;
 
 public final class QueryHandler {
     public static final String LOG_TAG = QueryHandler.class.getSimpleName();
-    public static final String TEST_URL = "https://www.googleapis.com/books/v1/volumes?q=fantasy&maxResults=10";
+    public static final String BASE_URL = "https://www.googleapis.com/books/v1/volumes?q=";
     private static final int PROPER_RESPONSE_CODE = 200;
+    private static String queryUrl;
 
 
     private QueryHandler() {
+    }
+
+    public static void setUrl(String urlToSet) {
+        queryUrl = urlToSet;
+    }
+
+    public static String getUrl() {
+        return queryUrl;
     }
 
     private static URL createURL(String url) {
