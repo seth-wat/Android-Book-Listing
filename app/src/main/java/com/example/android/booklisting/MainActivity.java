@@ -19,12 +19,15 @@ import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Book>> {
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String> {
+    private static final String JSON_RESULTS = null;
     ListView mListView;
+
     BookArrayAdapater mAdapter;
     EditText mEditView;
     //this will server as the unique loader id.
     int queryClicks;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,20 +67,23 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     @Override
-    public Loader<List<Book>> onCreateLoader(int id, Bundle args) {
+    public Loader<String> onCreateLoader(int id, Bundle args) {
         return new BookLoader(MainActivity.this);
 
     }
 
     @Override
-    public void onLoadFinished(Loader<List<Book>> loader, List<Book> data) {
+    public void onLoadFinished(Loader<String> loader, String data) {
         Log.v("MainActivity", "onLoadFinished is now executing");
+        List<Book> bookData = QueryHandler.parseJSONData(data);
+
+
         mAdapter.clear();
-        mAdapter.addAll(data);
+        mAdapter.addAll(bookData);
     }
 
     @Override
-    public void onLoaderReset(Loader<List<Book>> loader) {
+    public void onLoaderReset(Loader<String> loader) {
         
     }
 }

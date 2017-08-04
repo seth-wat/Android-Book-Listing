@@ -42,7 +42,7 @@ public final class QueryHandler {
         return queryUrl;
     }
 
-    private static URL createURL(String url) {
+    public static URL createURL(String url) {
         URL url2Return = null;
         try {
             url2Return = new URL(url);
@@ -52,7 +52,7 @@ public final class QueryHandler {
         return url2Return;
     }
 
-    private static HttpURLConnection makeConnection(URL url) {
+    public static HttpURLConnection makeConnection(URL url) {
         if (url == null) {
             return null;
         }
@@ -77,7 +77,7 @@ public final class QueryHandler {
         return myConnection;
     }
 
-    private static String getRawJSONFromStream(HttpURLConnection httpUrlCon) {
+    public static String getRawJSONFromStream(HttpURLConnection httpUrlCon) {
         StringBuilder rawJSON = new StringBuilder();
         InputStream is = null;
         try {
@@ -107,7 +107,7 @@ public final class QueryHandler {
         return rawJSON.toString();
     }
 
-    private static List<Book> parseJSONData(String rawJSON) {
+    public static List<Book> parseJSONData(String rawJSON) {
         ArrayList<Book> bookList = new ArrayList<Book>();
 
         JSONObject mainObject = null;
