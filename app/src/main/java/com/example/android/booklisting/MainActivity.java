@@ -3,6 +3,7 @@ package com.example.android.booklisting;
 import android.app.LoaderManager;
 import android.content.AsyncTaskLoader;;
 import android.content.Loader;
+import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,7 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String> {
-    private static final String JSON_RESULTS = null;
+    private static final String JSON_RESULTS = "jsonResults";
+    private String jsonResults;
+    Bundle bundle;
     ListView mListView;
 
     BookArrayAdapater mAdapter;
@@ -44,6 +47,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             }
         });
 
+        if (savedInstanceState != null) {
+            List<Book> bookData = QueryHandler.parseJSONData(savedInstanceState.getString(JSON_RESULTS));
+            mAdapter.clear();
+            mAdapter.addAll(bookData);
+        }
     }
 
     @Override
@@ -75,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onLoadFinished(Loader<String> loader, String data) {
         Log.v("MainActivity", "onLoadFinished is now executing");
+        jsonResults = data;
         List<Book> bookData = QueryHandler.parseJSONData(data);
 
 
@@ -85,5 +94,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onLoaderReset(Loader<String> loader) {
         
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(JSON_RESULTS, jsonResults);
     }
 }
